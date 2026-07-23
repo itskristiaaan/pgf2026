@@ -1,42 +1,196 @@
-                statusText.innerHTML = "👁️ Deteksi wajah sedang berjalan...";
-                statusText.style.color = "var(--neon-cyan)";
-            } catch (err) {
-                alert("Gagal mengakses kamera: " + err.message);
-            }
-        });
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristian Indrajati Herlambang - Profil Profesional & AI Webcam</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-        // 3. Mulai Deteksi saat Video Play
-        video.addEventListener('playing', () => {
-            // Sinkronisasi ukuran canvas dengan video
-            const displaySize = { width: video.clientWidth, height: video.clientHeight };
-            faceapi.matchDimensions(canvas, displaySize);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #07070a;
+            --card-bg: rgba(18, 18, 26, 0.75);
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-purple: #9d4edd;
+            --neon-lime: #39ff14;
+            --neon-yellow: #ffe600;
+            --text-light: #f0f3f8;
+            --text-dim: #a0a5c0;
+        }
 
-            // Looping deteksi setiap 100ms
-            setInterval(async () => {
-                if (video.paused || video.ended) return;
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 243, 255, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(255, 0, 127, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(157, 78, 221, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
 
-                // Proses deteksi
-                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-                    .withFaceLandmarks()
-                    .withFaceExpressions();
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .hero { text-align: center; padding: 50px 20px 40px; position: relative; }
+        
+        .avatar-container {
+            position: relative; width: 210px; height: 210px; margin: 0 auto 30px;
+            border-radius: 50%; padding: 7px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4), 0 0 50px rgba(255, 0, 127, 0.2);
+            animation: pulseGlow 4s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(255, 0, 127, 0.2); }
+            100% { box-shadow: 0 0 35px rgba(0, 243, 255, 0.7), 0 0 70px rgba(255, 0, 127, 0.5); }
+        }
+        .avatar {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+            border: 4px solid var(--bg-dark); display: block;
+        }
 
-                // Sesuaikan koordinat deteksi dengan ukuran canvas
-                const resizedDetections = faceapi.resizeResults(detections, displaySize);
+        .hero-name {
+            font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: 900;
+            background: linear-gradient(90deg, #ffffff, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3); margin-bottom: 12px;
+        }
+        .hero-title {
+            font-size: 1.25rem; color: var(--neon-cyan); font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); margin-bottom: 8px;
+        }
 
-                // Hapus canvas frame sebelumnya
-                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
+        .card {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px; padding: 30px; backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+        }
+        .card-title {
+            font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 700;
+            color: var(--neon-cyan); margin-bottom: 20px;
+        }
+        .full-width { grid-column: 1 / -1; }
+        
+        #webcam-wrapper {
+            position: relative; width: 100%; max-width: 640px; margin: 0 auto;
+            aspect-ratio: 4/3; background: #000; border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--neon-cyan); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        video, canvas {
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+            object-fit: cover; transform: scaleX(-1); /* Efek Cermin */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero">
+            <div class="avatar-container">
+                <!-- Avatar Gambar (Placeholder Menggunakan UI Generik karena Data Terpotong) -->
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kristian" alt="Avatar" class="avatar">
+            </div>
+            <h1 class="hero-name">Kristian Indrajati Herlambang</h1>
+            <p class="hero-title">Software Developer & AI Enthusiast</p>
+        </header>
 
-                // Gambar hasil (Kotak wajah, titik wajah, text emosi)
-                faceapi.draw.drawDetections(canvas, resizedDetections);
-                faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-                faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+        <div class="grid">
+            <!-- Webcam & Face Emotion Detection Card -->
+            <div class="card full-width" style="text-align: center;">
+                <h2 class="card-title lime" style="justify-content: center;">Deteksi Emosi Wajah (AI)</h2>
+                <p style="color: var(--text-dim); margin-bottom: 20px;">Berikan izin akses kamera pada browser Anda. AI akan menganalisis ekspresi wajah secara langsung (Tersenyum, Sedih, Marah, dll).</p>
                 
-            }, 100);
+                <div id="webcam-wrapper">
+                    <video id="webcam" autoplay muted playsinline></video>
+                    <canvas id="overlay"></canvas>
+                </div>
+                
+                <div id="emotion-status" style="margin-top: 25px; font-size: 1.5rem; font-weight: 800; color: var(--neon-yellow); text-shadow: 0 0 10px rgba(255, 230, 0, 0.4);">
+                    Menyiapkan Model AI...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pemuatan Library face-api.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const video = document.getElementById('webcam');
+            const canvas = document.getElementById('overlay');
+            const status = document.getElementById('emotion-status');
+
+            // URL Endpoint Model AI Face-API (TinyFaceDetector & FaceExpressionNet)
+            const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+            
+            try {
+                // Load model pendeteksi wajah dan ekspresi
+                await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+                status.innerText = "Model AI siap. Meminta akses kamera...";
+                
+                // Minta izin Webcam
+                const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+                video.srcObject = stream;
+            } catch (err) {
+                status.innerText = "Gagal memuat: " + err.message;
+            }
+
+            // Mulai pendeteksian ketika video mulai berputar
+            video.addEventListener('play', () => {
+                const displaySize = { width: video.offsetWidth, height: video.offsetHeight };
+                faceapi.matchDimensions(canvas, displaySize);
+                
+                setInterval(async () => {
+                    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
+                    const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                    
+                    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Gambar kotak wajah dan ekspresi pada canvas
+                    faceapi.draw.drawDetections(canvas, resizedDetections);
+                    faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+
+                    if (detections.length > 0) {
+                        const expressions = detections[0].expressions;
+                        let maxEmotion = "";
+                        let maxScore = 0;
+                        
+                        // Cari tingkat probabilitas ekspresi tertinggi
+                        for (const [emotion, score] of Object.entries(expressions)) {
+                            if (score > maxScore) {
+                                maxScore = score;
+                                maxEmotion = emotion;
+                            }
+                        }
+                        
+                        // Translasi bahasa inggris ke bahasa Indonesia
+                        const emotionDict = {
+                            'happy': 'Tersenyum 😊',
+                            'sad': 'Sedih 😢',
+                            'angry': 'Marah 😡',
+                            'neutral': 'Netral 😐',
+                            'surprised': 'Terkejut 😲',
+                            'disgusted': 'Jijik 🤢',
+                            'fearful': 'Takut 😨'
+                        };
+                        
+                        status.innerText = "Emosi Anda: " + (emotionDict[maxEmotion] || maxEmotion);
+                    } else {
+                        status.innerText = "Tidak ada wajah terdeteksi";
+                    }
+                }, 250); // Jalankan loop deteksi setiap 250ms
+            });
         });
-
-        // Jalankan fungsi load model saat window dimuat
-        window.addEventListener('load', loadModels);
-
     </script>
 </body>
 </html>
