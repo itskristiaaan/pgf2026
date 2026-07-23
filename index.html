@@ -397,6 +397,28 @@ pySgyMDGfkqtZxzRhSvfvR9qzceUs31/2qALuHx/rRSSRxpHjzd9M8uQfun/jqGWEgYSX5fc0TAfHthG
                 </ul>
             </section>
 
+            <!-- Live Webcam Streaming Section -->
+        <div class="card card-pink">
+            <h2 class="section-title title-pink">📹 Real-Time Computer Webcam Streaming</h2>
+            <div class="webcam-container">
+                <div class="video-wrapper">
+                    <div id="webcamPlaceholder" class="webcam-placeholder">
+                        <p>Klik tombol <strong>"Aktifkan Webcam"</strong> di bawah untuk memulai streaming langsung dari kamera komputer ini.</p>
+                    </div>
+                    <video id="webcamVideo" autoplay playsinline muted></video>
+                </div>
+
+                <div class="controls">
+                    <button id="startBtn" class="btn-neon btn-start" onclick="startWebcam()">▶ Aktifkan Webcam</button>
+                    <button id="stopBtn" class="btn-neon btn-stop" onclick="stopWebcam()" style="display: none;">⏹ Matikan Webcam</button>
+                </div>
+
+                <div id="liveBadge" class="live-badge" style="display: none;">
+                    <span class="dot"></span> WEBCAM STREAMING LIVE
+                </div>
+            </div>
+        </div>
+            
             <!-- Keahlian Utama (Kompetensi CV) -->
             <section class="card full-width">
                 <h2 class="card-title lime">
