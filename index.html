@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil & Live Stream - Kristian Indrajati Herlambang</title>
+    <title>Kristian Indrajati Herlambang - Neon Profile & Live Stream</title>
     <style>
         :root {
-            --bg-color: #0a0a0c;
-            --card-bg: #121318;
+            --bg-dark: #050508;
+            --card-bg: rgba(18, 20, 29, 0.85);
             --neon-cyan: #00f3ff;
-            --neon-magenta: #ff007f;
-            --neon-lime: #39ff14;
-            --text-color: #e0e0e0;
-            --text-muted: #a0a0a0;
+            --neon-pink: #ff007f;
+            --neon-green: #39ff14;
+            --neon-purple: #b026ff;
+            --text-light: #f0f0f5;
+            --text-muted: #a0a5c0;
         }
 
         * {
@@ -22,114 +23,143 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             line-height: 1.6;
-            padding: 20px;
+            padding: 30px 15px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 20%);
         }
 
         .container {
-            max-width: 1050px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
         }
 
-        /* Profile Header Section */
+        /* Profile Banner Card */
         .profile-card {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            border-radius: 16px;
-            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 20px;
+            padding: 35px;
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 35px;
             align-items: center;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.15), inset 0 0 15px rgba(0, 243, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-img-container {
+            position: relative;
+            margin: 0 auto;
         }
 
         .profile-img {
-            width: 180px;
-            height: 180px;
+            width: 210px;
+            height: 210px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--neon-cyan);
-            box-shadow: 0 0 15px var(--neon-cyan);
-            margin: 0 auto;
+            box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
         }
 
         .profile-info {
             flex: 1;
-            min-width: 280px;
+            min-width: 300px;
         }
 
         .profile-info h1 {
             color: #ffffff;
-            font-size: 2.2rem;
-            text-shadow: 0 0 8px var(--neon-cyan);
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
             margin-bottom: 5px;
+            letter-spacing: 1px;
         }
 
         .profile-info h3 {
-            color: var(--neon-magenta);
-            font-size: 1.2rem;
-            text-shadow: 0 0 6px var(--neon-magenta);
-            margin-bottom: 15px;
+            color: var(--neon-pink);
+            font-size: 1.3rem;
+            text-shadow: 0 0 8px var(--neon-pink);
+            margin-bottom: 18px;
+            font-weight: 600;
         }
 
         .profile-details p {
             color: var(--text-muted);
-            margin-bottom: 6px;
-            font-size: 0.95rem;
+            margin-bottom: 8px;
+            font-size: 1rem;
         }
 
         .profile-details strong {
-            color: #fff;
+            color: #ffffff;
         }
 
-        /* Live Stream Section */
+        /* Cards Generic Styling */
         .card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255, 0, 127, 0.2);
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-cyan {
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+
+        .card-pink {
+            border: 1px solid rgba(255, 0, 127, 0.3);
             box-shadow: 0 0 15px rgba(255, 0, 127, 0.1);
         }
 
+        .card-green {
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+
         .section-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 8px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .title-cyan {
             color: var(--neon-cyan);
-            text-shadow: 0 0 6px var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
         }
 
-        .title-magenta {
-            color: var(--neon-magenta);
-            text-shadow: 0 0 6px var(--neon-magenta);
+        .title-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
         }
 
-        .title-lime {
-            color: var(--neon-lime);
-            text-shadow: 0 0 6px var(--neon-lime);
+        .title-green {
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
         }
 
+        /* Stream Section */
         .stream-wrapper {
             position: relative;
             width: 100%;
             background-color: #000;
             border-radius: 12px;
             overflow: hidden;
-            border: 2px solid var(--neon-magenta);
-            box-shadow: 0 0 12px var(--neon-magenta);
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 20px var(--neon-pink);
             text-align: center;
-            min-height: 250px;
+            min-height: 280px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,7 +168,7 @@
         .stream-wrapper img {
             width: 100%;
             height: auto;
-            max-height: 500px;
+            max-height: 520px;
             display: block;
             object-fit: contain;
         }
@@ -147,83 +177,110 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 15px;
-            padding: 6px 16px;
-            background-color: rgba(255, 0, 127, 0.2);
-            border: 1px solid var(--neon-magenta);
+            margin-top: 18px;
+            padding: 8px 20px;
+            background-color: rgba(255, 0, 127, 0.15);
+            border: 1px solid var(--neon-pink);
             color: #fff;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            box-shadow: 0 0 8px var(--neon-magenta);
+            box-shadow: 0 0 10px var(--neon-pink);
+            letter-spacing: 1px;
         }
 
         .dot {
             width: 10px;
             height: 10px;
-            background-color: var(--neon-magenta);
+            background-color: var(--neon-pink);
             border-radius: 50%;
-            animation: blink 1.2s infinite;
+            box-shadow: 0 0 8px var(--neon-pink);
+            animation: pulse 1.2s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
-        /* Grid Layouts for Content */
+        /* Grid Layouts */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
 
-        .list-item {
-            margin-bottom: 12px;
+        .timeline-item {
+            margin-bottom: 18px;
+            position: relative;
+            padding-left: 15px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
         }
 
-        .list-item h4 {
-            color: #fff;
-            font-size: 1rem;
+        .timeline-item h4 {
+            color: #ffffff;
+            font-size: 1.05rem;
         }
 
-        .list-item p {
+        .timeline-item .sub {
+            color: var(--neon-cyan);
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .timeline-item p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
         }
 
-        /* Neon Tags */
+        /* Neon Skill Badges */
         .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             margin-top: 10px;
         }
 
         .tag {
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 500;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.2s ease;
         }
 
         .tag-cyan {
             border: 1px solid var(--neon-cyan);
             color: var(--neon-cyan);
-            box-shadow: 0 0 5px var(--neon-cyan);
+            box-shadow: 0 0 6px rgba(0, 243, 255, 0.4);
         }
 
-        .tag-lime {
-            border: 1px solid var(--neon-lime);
-            color: var(--neon-lime);
-            box-shadow: 0 0 5px var(--neon-lime);
+        .tag-pink {
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 6px rgba(255, 0, 127, 0.4);
         }
 
-        /* Responsive */
-        @media (max-width: 650px) {
+        .tag-green {
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 6px rgba(57, 255, 20, 0.4);
+        }
+
+        .tag-purple {
+            border: 1px solid var(--neon-purple);
+            color: var(--neon-purple);
+            box-shadow: 0 0 6px rgba(176, 38, 255, 0.4);
+        }
+
+        @media (max-width: 700px) {
             .profile-card {
                 text-align: center;
                 flex-direction: column;
+            }
+            .profile-info h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -234,86 +291,95 @@
         
         <!-- Header Profil -->
         <div class="profile-card">
-            <!-- Foto Profil (Gunakan file foto yang diunggah) -->
-            <img src="20260610_101046(1)(1)_2.jpg" alt="Kristian Indrajati Herlambang" class="profile-img">
+            <div class="profile-img-container">
+                <img src="20260610_101046(1)(1)_3.jpg" alt="Kristian Indrajati Herlambang" class="profile-img">
+            </div>
             
             <div class="profile-info">
                 <h1>Kristian Indrajati Herlambang</h1>
                 <h3>Guru SMA Katolik St. Albertus (Dempo) Malang</h3>
                 <div class="profile-details">
-                    <p><strong>Tempat, Tgl Lahir:</strong> Malang, 6 April 2002[cite: 2]</p>
-                    <p><strong>Pendidikan:</strong> S1 Pendidikan Fisika - Universitas Negeri Malang (IPK: 3,89 / 4,00)[cite: 2]</p>
-                    <p><strong>Kontak:</strong> kristian.719253@gmail.com | +6282139809116[cite: 2]</p>
+                    <p><strong>Tempat, Tanggal Lahir:</strong> Malang, 6 April 2002</p>
+                    <p><strong>Pendidikan:</strong> S1 Pendidikan Fisika - Universitas Negeri Malang (IPK 3,89 / 4,00)</p>
+                    <p><strong>Email / Kontak:</strong> kristian.719253@gmail.com | +6282139809116</p>
+                    <p><strong>LinkedIn:</strong> linkedin.com/in/kristian-indrajati-herlambang</p>
                 </div>
             </div>
         </div>
 
         <!-- Live Streaming Section -->
-        <div class="card">
-            <h2 class="section-title title-magenta">🎥 Live Streaming Experiment / Classroom</h2>
+        <div class="card card-pink">
+            <h2 class="section-title title-pink">📹 Live Video Streaming Camera</h2>
             <div class="stream-wrapper">
-                <!-- IP Streaming Kamera -->
-                <img src="http://10.101.209.93/" alt="Sinyal Video Terputus / Perangkat Tidak Terhubung Jaringan Lokal" id="liveStream">
+                <img src="http://10.101.209.93/" alt="Perangkat Kamera / Stream Tidak Terhubung (Pastikan Terkoneksi Jaringan Lokal http://10.101.209.93)" id="liveStream">
             </div>
             <div style="text-align: center;">
                 <div class="live-badge">
-                    <span class="dot"></span> LIVE TRANSMISSION (10.101.209.93)
+                    <span class="dot"></span> LIVE BROADCAST • http://10.101.209.93/
                 </div>
             </div>
         </div>
 
-        <!-- Ringkasan Profil & Pengalaman -->
+        <!-- Detail CV: Pengalaman & Prestasi -->
         <div class="grid-2">
-            <div class="card">
-                <h2 class="section-title title-cyan">🎓 Pengalaman Mengajar & MBKM</h2>
+            <!-- Pengalaman Mengajar & MBKM -->
+            <div class="card card-cyan">
+                <h2 class="section-title title-cyan">👨‍🏫 Pengalaman Mengajar & Karir</h2>
                 
-                <div class="list-item">
+                <div class="timeline-item">
                     <h4>Bimbingan Belajar Non-Lembaga</h4>
-                    <p>Mengajar mata kuliah Fisika Dasar, Kalkulus, dan Fisika Matematika untuk mahasiswa S1[cite: 2].</p>
-                </div>
-                
-                <div class="list-item">
-                    <h4>Pembina OSN Fisika</h4>
-                    <p>Membimbing siswa SMA dalam persiapan Olimpiade Sains Nasional (OSN) tingkat Provinsi[cite: 2].</p>
+                    <div class="sub">November 2024 - Sekarang</div>
+                    <p>Mengajar mata kuliah Fisika Dasar, Kalkulus untuk Fisika, dan Fisika Matematika bagi mahasiswa S1 Pendidikan Fisika.</p>
                 </div>
 
-                <div class="list-item">
+                <div class="timeline-item">
+                    <h4>Bimbingan Belajar Persiapan OSN</h4>
+                    <div class="sub">April 2024 - Mei 2024</div>
+                    <p>Membimbing siswa SMA pada materi Kinematika, Dinamika, Gravitasi, dan Osilasi menuju OSN tingkat provinsi.</p>
+                </div>
+
+                <div class="timeline-item">
                     <h4>Program MBKM - SMAN 2 Pare</h4>
-                    <p>Pengajar Fisika kelas XI & XII serta aktif dalam pengelolaan konten EdTech dan kompetisi infografis[cite: 2].</p>
+                    <div class="sub">Juli 2023 - Desember 2023</div>
+                    <p>Pengajar Fisika kelas XI & XII, pembina OSN, serta pengelola desain visual & konten EdTech Instagram sekolah.</p>
                 </div>
             </div>
 
-            <div class="card">
-                <h2 class="section-title title-lime">🏆 Prestasi & Pengalaman Organisasi</h2>
+            <!-- Prestasi & Organisasi -->
+            <div class="card card-green">
+                <h2 class="section-title title-green">🏆 Prestasi & Pengalaman Organisasi</h2>
                 
-                <div class="list-item">
+                <div class="timeline-item">
                     <h4>ONMIPA-PT Bidang Fisika</h4>
-                    <p>2x Finalis Olimpiade Nasional MIPA Perguruan Tinggi (2022 & 2023)[cite: 2].</p>
+                    <div class="sub">Finalis Nasional (2022 & 2023) | Peserta (2021 & 2024)</div>
+                    <p>Kompetisi tingkat perguruan tinggi nasional bidang Sains & Fisika.</p>
                 </div>
 
-                <div class="list-item">
-                    <h4>3rd Soegijapranata International Choir Competition (2024)</h4>
-                    <p>1st Runner Up Grand Prix, Gold B Medal (Sacred Choir & Mixed Choir)[cite: 2].</p>
+                <div class="timeline-item">
+                    <h4>3rd Soegijapranata Int. Choir Competition 2024</h4>
+                    <div class="sub">1st Runner Up Grand Prix & Gold B Medals</div>
+                    <p>Juara Kategori Sacred Choir & Mixed Choir pada ajang paduan suara internasional.</p>
                 </div>
 
-                <div class="list-item">
+                <div class="timeline-item">
                     <h4>Tim Soal Fisika UM</h4>
-                    <p>Pernah menjabat Wakil Ketua Umum, Dewan Penasihat, serta pembuat naskah soal NuPhO[cite: 2].</p>
+                    <div class="sub">DPO (2023) | Wakaketum (2022) | Anggota Dep. Penelitian (2021)</div>
+                    <p>Penyusun naskah soal Nucleon Physics Olympiad (NuPhO) dan pendiri Komunitas ON-MIPA Fisika UM.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Keahlian -->
-        <div class="card">
-            <h2 class="section-title title-cyan">⚡ Keahlian & Sertifikasi Pembina</h2>
+        <!-- Keahlian & Pelatihan -->
+        <div class="card card-cyan">
+            <h2 class="section-title title-cyan">⚡ Keahlian, Sertifikasi & Pemateri</h2>
             <div class="tags">
-                <span class="tag tag-cyan">Pembina OSN Fisika Batch 3 & 4[cite: 2]</span>
-                <span class="tag tag-lime">Mekanika Klasik[cite: 2]</span>
-                <span class="tag tag-cyan">Fisika Matematika & Statistik[cite: 2]</span>
-                <span class="tag tag-lime">Fisika Inti & Elektromagnetika[cite: 2]</span>
-                <span class="tag tag-cyan">Microsoft Office & Canva[cite: 2]</span>
-                <span class="tag tag-lime">Adobe Photoshop[cite: 2]</span>
-                <span class="tag tag-cyan">Manajemen Kelas & EdTech[cite: 2]</span>
+                <span class="tag tag-cyan">Pelatihan Pembina Kompetisi Fisika Batch 3 & 4</span>
+                <span class="tag tag-pink">Pemateri Belajar Bareng (Fisika Inti, Statistik & Matematika)</span>
+                <span class="tag tag-green">Asisten Praktikum Fisika Dasar III & Elektromagnetika</span>
+                <span class="tag tag-purple">Mekanika Klasik & Kalkulus</span>
+                <span class="tag tag-cyan">Pedagogi Modern & EdTech</span>
+                <span class="tag tag-pink">Canva & Adobe Photoshop</span>
+                <span class="tag tag-green">Microsoft Office Suite</span>
             </div>
         </div>
 
@@ -321,3 +387,9 @@
 
 </body>
 </html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("FILE_GENERATED: index.html")
