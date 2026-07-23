@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Pendidik & Live Streaming - Kristian Indrajati Herlambang</title>
+    <title>Profil & Live Stream - Kristian Indrajati Herlambang</title>
     <style>
         :root {
-            --primary-color: #1a365d;
-            --secondary-color: #2b6cb0;
-            --accent-color: #319795;
-            --bg-color: #f7fafc;
-            --card-bg: #ffffff;
-            --text-color: #2d3748;
-            --light-text: #718096;
+            --bg-color: #0a0a0c;
+            --card-bg: #121318;
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff007f;
+            --neon-lime: #39ff14;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
         }
 
         * {
@@ -22,7 +22,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -30,83 +30,109 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 25px;
         }
 
-        /* Header / Profil Card */
+        /* Profile Header Section */
         .profile-card {
-            background: var(--card-bg);
-            border-radius: 12px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
             align-items: center;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
         }
 
-        .profile-header {
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            margin: 0 auto;
+        }
+
+        .profile-info {
             flex: 1;
             min-width: 280px;
         }
 
-        .profile-header h1 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
+        .profile-info h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            text-shadow: 0 0 8px var(--neon-cyan);
             margin-bottom: 5px;
         }
 
-        .profile-header h3 {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .profile-details {
-            font-size: 0.95rem;
-            color: var(--light-text);
+        .profile-info h3 {
+            color: var(--neon-magenta);
+            font-size: 1.2rem;
+            text-shadow: 0 0 6px var(--neon-magenta);
             margin-bottom: 15px;
         }
 
-        .profile-bio {
+        .profile-details p {
+            color: var(--text-muted);
+            margin-bottom: 6px;
             font-size: 0.95rem;
-            color: var(--text-color);
         }
 
-        /* Section Title */
+        .profile-details strong {
+            color: #fff;
+        }
+
+        /* Live Stream Section */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 0, 127, 0.2);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.1);
+        }
+
         .section-title {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            border-bottom: 2px solid var(--accent-color);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
             padding-bottom: 8px;
-            margin-bottom: 16px;
         }
 
-        /* Streaming Section */
-        .stream-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            text-align: center;
+        .title-cyan {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 6px var(--neon-cyan);
+        }
+
+        .title-magenta {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 6px var(--neon-magenta);
+        }
+
+        .title-lime {
+            color: var(--neon-lime);
+            text-shadow: 0 0 6px var(--neon-lime);
         }
 
         .stream-wrapper {
             position: relative;
             width: 100%;
-            background-color: #000000;
-            border-radius: 8px;
+            background-color: #000;
+            border-radius: 12px;
             overflow: hidden;
-            margin-top: 15px;
-            min-height: 240px;
+            border: 2px solid var(--neon-magenta);
+            box-shadow: 0 0 12px var(--neon-magenta);
+            text-align: center;
+            min-height: 250px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
 
         .stream-wrapper img {
@@ -117,64 +143,87 @@
             object-fit: contain;
         }
 
-        .status-badge {
+        .live-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             margin-top: 15px;
             padding: 6px 16px;
-            background-color: #e53e3e;
-            color: white;
-            font-size: 0.85rem;
+            background-color: rgba(255, 0, 127, 0.2);
+            border: 1px solid var(--neon-magenta);
+            color: #fff;
             border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: bold;
+            box-shadow: 0 0 8px var(--neon-magenta);
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: white;
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--neon-magenta);
             border-radius: 50%;
-            animation: pulse 1.5s infinite;
+            animation: blink 1.2s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
         }
 
-        /* Skills Badge Section */
-        .skills-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        /* Grid Layouts for Content */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .tag-container {
+        .list-item {
+            margin-bottom: 12px;
+        }
+
+        .list-item h4 {
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .list-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Neon Tags */
+        .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin-top: 10px;
         }
 
         .tag {
-            background-color: #e2e8f0;
-            color: var(--primary-color);
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
         }
 
-        /* Responsif untuk Layar Kecil */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .profile-card, .stream-card, .skills-card {
-                padding: 16px;
+        .tag-cyan {
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .tag-lime {
+            border: 1px solid var(--neon-lime);
+            color: var(--neon-lime);
+            box-shadow: 0 0 5px var(--neon-lime);
+        }
+
+        /* Responsive */
+        @media (max-width: 650px) {
+            .profile-card {
+                text-align: center;
+                flex-direction: column;
             }
         }
     </style>
@@ -183,45 +232,88 @@
 
     <div class="container">
         
-        <!-- Bagian Profil -->
+        <!-- Header Profil -->
         <div class="profile-card">
-            <div class="profile-header">
-                <h1>Kristian Indrajati Herlambang</h1>
-                <h3>Pendidik / Guru Fisika - SMA Katolik St. Albertus Malang</h3>
-                <div class="profile-details">
-                    📍 Tempat, Tanggal Lahir: Malang, 6 April 2002
-                </div>
-                <p class="profile-bio">
-                    Berfokus pada pembelajaran Fisika berbasis teknologi modern (EdTech), pembelajaran interaktif, serta pengembangan inovasi modul eksperimen laboratorium.
-                </p>
-            </div>
-        </div>
-
-        <!-- Bagian Live Streaming Webcam -->
-        <div class="stream-card">
-            <h2 class="section-title">Pemantauan Live Streaming / Praktikum</h2>
-            <p style="font-size: 0.9rem; color: var(--light-text);">Umpan video langsung dari laboratorium / kamera pemantau.</p>
+            <!-- Foto Profil (Gunakan file foto yang diunggah) -->
+            <img src="20260610_101046(1)(1)_2.jpg" alt="Kristian Indrajati Herlambang" class="profile-img">
             
-            <div class="stream-wrapper">
-                <!-- Stream dari perangkat lokal IP 10.101.209.93 -->
-                <img src="http://10.101.209.93/" alt="Gagal Memuat Stream - Pastikan Perangkat Terhubung ke Jaringan Lokal" id="liveStream">
-            </div>
-
-            <div class="status-badge">
-                <span class="status-dot"></span> LIVE STREAMING
+            <div class="profile-info">
+                <h1>Kristian Indrajati Herlambang</h1>
+                <h3>Guru SMA Katolik St. Albertus (Dempo) Malang</h3>
+                <div class="profile-details">
+                    <p><strong>Tempat, Tgl Lahir:</strong> Malang, 6 April 2002[cite: 2]</p>
+                    <p><strong>Pendidikan:</strong> S1 Pendidikan Fisika - Universitas Negeri Malang (IPK: 3,89 / 4,00)[cite: 2]</p>
+                    <p><strong>Kontak:</strong> kristian.719253@gmail.com | +6282139809116[cite: 2]</p>
+                </div>
             </div>
         </div>
 
-        <!-- Bagian Keahlian & Fokus Utama -->
-        <div class="skills-card">
-            <h2 class="section-title">Keahlian & Fokus Pembelajaran</h2>
-            <div class="tag-container">
-                <span class="tag">Fisika Gelombang & Optik</span>
-                <span class="tag">Dinamika Partikel</span>
-                <span class="tag">Termodinamika</span>
-                <span class="tag">Pedagogi Modern</span>
-                <span class="tag">Integrasi EdTech</span>
-                <span class="tag">Eksperimen Digital</span>
+        <!-- Live Streaming Section -->
+        <div class="card">
+            <h2 class="section-title title-magenta">🎥 Live Streaming Experiment / Classroom</h2>
+            <div class="stream-wrapper">
+                <!-- IP Streaming Kamera -->
+                <img src="http://10.101.209.93/" alt="Sinyal Video Terputus / Perangkat Tidak Terhubung Jaringan Lokal" id="liveStream">
+            </div>
+            <div style="text-align: center;">
+                <div class="live-badge">
+                    <span class="dot"></span> LIVE TRANSMISSION (10.101.209.93)
+                </div>
+            </div>
+        </div>
+
+        <!-- Ringkasan Profil & Pengalaman -->
+        <div class="grid-2">
+            <div class="card">
+                <h2 class="section-title title-cyan">🎓 Pengalaman Mengajar & MBKM</h2>
+                
+                <div class="list-item">
+                    <h4>Bimbingan Belajar Non-Lembaga</h4>
+                    <p>Mengajar mata kuliah Fisika Dasar, Kalkulus, dan Fisika Matematika untuk mahasiswa S1[cite: 2].</p>
+                </div>
+                
+                <div class="list-item">
+                    <h4>Pembina OSN Fisika</h4>
+                    <p>Membimbing siswa SMA dalam persiapan Olimpiade Sains Nasional (OSN) tingkat Provinsi[cite: 2].</p>
+                </div>
+
+                <div class="list-item">
+                    <h4>Program MBKM - SMAN 2 Pare</h4>
+                    <p>Pengajar Fisika kelas XI & XII serta aktif dalam pengelolaan konten EdTech dan kompetisi infografis[cite: 2].</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title title-lime">🏆 Prestasi & Pengalaman Organisasi</h2>
+                
+                <div class="list-item">
+                    <h4>ONMIPA-PT Bidang Fisika</h4>
+                    <p>2x Finalis Olimpiade Nasional MIPA Perguruan Tinggi (2022 & 2023)[cite: 2].</p>
+                </div>
+
+                <div class="list-item">
+                    <h4>3rd Soegijapranata International Choir Competition (2024)</h4>
+                    <p>1st Runner Up Grand Prix, Gold B Medal (Sacred Choir & Mixed Choir)[cite: 2].</p>
+                </div>
+
+                <div class="list-item">
+                    <h4>Tim Soal Fisika UM</h4>
+                    <p>Pernah menjabat Wakil Ketua Umum, Dewan Penasihat, serta pembuat naskah soal NuPhO[cite: 2].</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keahlian -->
+        <div class="card">
+            <h2 class="section-title title-cyan">⚡ Keahlian & Sertifikasi Pembina</h2>
+            <div class="tags">
+                <span class="tag tag-cyan">Pembina OSN Fisika Batch 3 & 4[cite: 2]</span>
+                <span class="tag tag-lime">Mekanika Klasik[cite: 2]</span>
+                <span class="tag tag-cyan">Fisika Matematika & Statistik[cite: 2]</span>
+                <span class="tag tag-lime">Fisika Inti & Elektromagnetika[cite: 2]</span>
+                <span class="tag tag-cyan">Microsoft Office & Canva[cite: 2]</span>
+                <span class="tag tag-lime">Adobe Photoshop[cite: 2]</span>
+                <span class="tag tag-cyan">Manajemen Kelas & EdTech[cite: 2]</span>
             </div>
         </div>
 
